@@ -1,10 +1,11 @@
 import os
 import streamlit as st
+from streamlit.errors import StreamlitSecretNotFoundError
 from dotenv import load_dotenv
 
 load_dotenv()
 
-if "GOOGLE_API_KEY" in st.secrets:
+try:
     GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-else:
+except (KeyError, StreamlitSecretNotFoundError):
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
